@@ -1,0 +1,66 @@
+{
+  "name": "bokermaster",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "ant-design-vue": "^2.0.0-rc.1",
+    "axios": "^0.21.0",
+    "core-js": "^3.6.5",
+    "default-passive-events": "^2.0.0",
+    "echarts": "^3.7.2",
+    "echarts-for-vue": "^1.0.1",
+    "install": "^0.13.0",
+    "node-sass": "^4.0.0",
+    "sass-loader": "^7.3.1",
+    "serve": "^11.3.2",
+    "vue": "^3.0.0",
+    "vue-baidu-map": "^0.21.22",
+    "vue-router": "^4.0.0-0",
+    "vuex": "^4.0.0-0",
+    "zrender": "3.6.3"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.33.0",
+    "@typescript-eslint/parser": "^2.33.0",
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-router": "~4.5.0",
+    "@vue/cli-plugin-typescript": "~4.5.0",
+    "@vue/cli-plugin-vuex": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "@vue/compiler-sfc": "^3.0.0",
+    "@vue/eslint-config-typescript": "^5.0.2",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^7.0.0-0",
+    "typescript": "~3.9.3"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/vue3-essential",
+      "eslint:recommended",
+      "@vue/typescript/recommended"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 2020
+    },
+    "rules": {
+      "@typescript-eslint/no-explicit-any": [
+        "off"
+      ]
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
