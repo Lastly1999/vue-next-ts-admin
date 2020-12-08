@@ -1,0 +1,16 @@
+.loginFrom {
+  border-radius: 8px;
+  width: 500px;
+  height: 400px;
+  background: #fff;
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 7%;
+  box-shadow: 2px 2px 5px #333333;
+  padding: 20px;
+
+  #loginFromInput {
+    margin-top: 40px;
+  }
+}

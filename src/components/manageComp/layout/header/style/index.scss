@@ -1,0 +1,16 @@
+.headerNav {
+  .trigger {
+    height: 60px;
+    line-height: 60px;
+    font-size: 18px;
+    padding: 0 24px;
+    cursor: pointer;
+    transition: color 0.3s;
+    display: inline;
+
+    &:hover {
+      color: #1890ff;
+    }
+  }
+}
+
