@@ -1,7 +1,9 @@
-# vue-next-ts-admin
-vue3+TypeScript+Ant DesignUI
-
 # Vue3+TypeScript+Ant Design学习项目
+* 学习vue3.0以及日常使用组件开发的一个demo
+
+# 技术栈
+* 前端:vue3.0 Ant Design2.0Rc UI框架库 TypeScript3.9
+* 后端:Python Django框架 验证模块 django-jwt身份验证 数据库 MYSQL8.x
 
 # 后台账号权限管理
 * 菜单权限管理
