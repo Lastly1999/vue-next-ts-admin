@@ -6,7 +6,7 @@ module.exports = {
     // 指定子路径。比如，如果你的应用部署在
     // https://www.foobar.com/my-app/
     // 那么将这个值改为 `/my-app/`
-    publicPath: '/',/*这个是我存放在github在线预览的Reader项目*/
+    publicPath: './',/*这个是我存放在github在线预览的Reader项目*/
 
     // 将构建好的文件输出到哪里（或者说将编译的文件）
     outputDir: 'dist',
@@ -72,7 +72,7 @@ module.exports = {
 
     // 在生产环境下为 Babel 和 TypeScript 使用 `thread-loader`
     // 在多核机器下会默认开启。
-    parallel: require('os').cpus().length > 1,
+    // parallel: require('os').cpus().length > 1,
 
     // PWA 插件的选项。
     // 查阅 https://github.com/vuejs/vue-cli/tree/dev/packages/@vue/cli-plugin-pwa

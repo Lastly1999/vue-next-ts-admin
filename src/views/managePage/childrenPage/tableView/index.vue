@@ -1,17 +1,42 @@
+<template>
+  <div>
+    <modal @clear="hideShow" :visible="dialogShow" :dialogTitle="title">
+      <fromModel ref="ruleFrom" :rules="rules" :data="dialogData" @okSubmit="ruleFromSumbit"></fromModel>
+    </modal>
+    <!-- 搜索框 -->
+    <a-row style="margin-bottom: 10px">
+      <a-col>
+        <search @searchInput="onSearch"></search>
+      </a-col>
+      <a-col style="margin-left: 10px">
+        <a-button type="primary" @click="appendList">
+          添加
+        </a-button>
+      </a-col>
+    </a-row>
+    <!-- 列表内容 -->
+    <tableList @edit="editCol" @remove="removeCol" :data-source="tableData" :columns-source="tableHeader"
+               :pagination="limit"
+               :tableLoading="loadingFlag"
+               @change="switchPage">
+    </tableList>
+  </div>
+</template>
+
 <script lang="ts">
 import {defineComponent, reactive, toRefs, onMounted, Ref, ref} from "vue"
-import {changeTalbeList, GetTableList} from "@/service/api/tableHttp/index" // 导入请求
+import {changeTalbeList, getAllTableList} from "@/service/api/tableHttp/index" // 导入请求
 import tableList from "@/components/manageComp/table/index.vue" // 表格列表
 import search from "@/components/manageComp/serachInput/index.vue"
 import modal from "@/components/manageComp/dialog/index.vue"
-import fromModel from "@/components/manageComp/fromModel/index.vue"
+import fromModel from "@/components/manageComp/dialogFormModel/index.vue"
 import headerData from "./headerJson" // 表头数据
 import {
   modalPerson,
   PaginationPerson,
   TableListPerson
-} from "@/typings/viewTyping/manageTyping/childrenTyping/tableViewTyping/tableViewTyping"
-import {AntdNotice} from "@/utils/antd/antdNotice"; // 导入接口
+} from "@/typings/viewTyping/manageTyping/childrenTyping/tableViewTyping/tableViewTyping"// 导入接口
+import {AntdNotice} from "@/utils/antd/antdNotice";
 
 export default defineComponent({
   components: {
@@ -39,12 +64,14 @@ export default defineComponent({
       },
       // 获取数据
       getTableList: async () => {
-        tableListClass.beingloadingFlag()
-        await new GetTableList(paginationClass.params).httpPostRequest().then((res: any) => {
-          tableListClass.tableData = res.cityList
-          tableListClass.limit = res.limit
-          tableListClass.notLoadingFlag()
-        })
+        tableListClass.beingloadingFlag() // 开启加载
+        const {code, data}: any = await getAllTableList(paginationClass.params);
+        if (code === 200) {
+          tableListClass.tableData = data.list
+          const {total} = data
+          tableListClass.limit = {'total': total}
+          tableListClass.notLoadingFlag() // 关闭加载
+        }
       },
       // 修改表格行内容
       editCol(dataCol: object) {
@@ -79,35 +106,11 @@ export default defineComponent({
       paginationClass.params.keywords = keywords;
       tableListClass.getTableList()
     }
-    /**
-     * 弹窗操作类
-     */
-    const modalClass: modalPerson = reactive<modalPerson>({
-      title: "",
-      dialogShow: false,
-      // 显示dialog
-      displayShow: (title: string) => {
-        modalClass.title = title
-        modalClass.dialogShow = true
-      },
-      // 隐藏dialog
-      hideShow: () => {
-        fromDataClass.dialogData = {
-          id: null,
-          name: '',
-          countrycode: '',
-          district: '',
-          population: 0,
-          flag: ''
-        }
-        ruleFrom.value.$refs.ruleForm.clearValidate()
-        modalClass.dialogShow = false
-      },
-    })
+    const ruleFrom: Ref = ref(null)
+
     /**
      * 表单操作类
      */
-    const ruleFrom: Ref = ref(null)
     const fromDataClass = reactive({
       // 表单数据
       dialogData: {
@@ -116,7 +119,7 @@ export default defineComponent({
         countrycode: '',
         district: '',
         population: 0,
-        flag: ''
+        flag: null
       },
       // 校验规则
       rules: {
@@ -136,13 +139,39 @@ export default defineComponent({
         fromDataClass.dialogData = JSON.parse(JSON.stringify(data))
       },
       // 校验通过后操作请求方法
-      ruleFromSumbit: () => {
-        new changeTalbeList(fromDataClass.dialogData).httpPostRequest().then((res: any) => {
-          if (res.code == 200) {
-            new AntdNotice('success', '修改成功', '').showNotice()
-          }
-        })
+      ruleFromSumbit: async () => {
+        const {code}: any = await changeTalbeList(fromDataClass.dialogData);
+        if (code === 200) {
+          new AntdNotice('success', '修改成功', '').showNotice()
+          modalClass.hideShow() // 关闭dialog
+          tableListClass.getTableList()
+        }
       }
+    })
+    /**
+     * 弹窗操作类
+     */
+    const modalClass: modalPerson = reactive<modalPerson>({
+      title: "",
+      dialogShow: false,
+      // 显示dialog
+      displayShow: (title: string) => {
+        modalClass.title = title
+        modalClass.dialogShow = true
+      },
+      // 隐藏dialog
+      hideShow: () => {
+        fromDataClass.dialogData = {
+          id: null,
+          name: '',
+          countrycode: '',
+          district: '',
+          population: 0,
+          flag: null
+        }
+        ruleFrom.value.$refs.ruleForm.clearValidate()
+        modalClass.dialogShow = false
+      },
     })
     /**
      * 初始化方法
@@ -157,28 +186,3 @@ export default defineComponent({
   }
 })
 </script>
-<!-- view -->
-<template>
-  <div>
-    <modal @clear="hideShow" :visible="dialogShow" :dialogTitle="title">
-      <fromModel ref="ruleFrom" :rules="rules" :data="dialogData" @okSubmit="ruleFromSumbit"></fromModel>
-    </modal>
-    <!-- 搜索框 -->
-    <a-row>
-      <a-col>
-        <search @searchInput="onSearch"></search>
-      </a-col>
-      <a-col style="margin-left: 10px">
-        <a-button type="primary" @click="appendList">
-          添加
-        </a-button>
-      </a-col>
-    </a-row>
-    <!-- 列表内容 -->
-    <tableList @edit="editCol" @remove="removeCol" :data-source="tableData" :columns-source="tableHeader"
-               :pagination="limit"
-               :tableLoading="loadingFlag"
-               @change="switchPage">
-    </tableList>
-  </div>
-</template>

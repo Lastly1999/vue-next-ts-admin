@@ -1,0 +1,14 @@
+.soketView {
+  height: calc(100% - 40px);
+  padding: 10px;
+  background: #000;
+  position: relative;
+  overflow: scroll;
+}
+.soketContainer{
+  .soketInput{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+}

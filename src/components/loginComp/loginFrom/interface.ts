@@ -20,6 +20,6 @@ export interface LoginFromPerson {
 // 表单数据
 export interface LoginFromClassPerson {
     loginFrom: LoginFromPerson;
-    judgeSave: () => void;
+    judgeSave: (data: object) => void;
     loginAction: () => void;
 }

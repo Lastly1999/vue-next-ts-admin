@@ -1,5 +1,5 @@
 <script lang="ts">
-import {defineComponent, reactive, toRefs} from 'vue'
+import {defineComponent} from 'vue'
 
 export default defineComponent({
   name: "modal",
@@ -25,11 +25,13 @@ export default defineComponent({
 <template>
   <div>
     <a-modal
+        :destroyOnClose="true"
         @cancel="clear"
         :visible="visible"
         :title="dialogTitle"
         centered
         :footer="null"
+        width="600"
     >
       <slot></slot>
     </a-modal>

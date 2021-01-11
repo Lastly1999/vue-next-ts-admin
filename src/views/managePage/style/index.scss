@@ -1,3 +1,19 @@
 #components-layout {
   height: 100vh;
 }
+
+.ant-table td {
+  white-space: nowrap;
+}
+
+// 表格滚动条导致表格和表头错位修复
+.ant-table-fixed-header .ant-table-scroll .ant-table-header {
+  width: calc(100% + 15px); //加上滚动条的宽度
+}
+
+// dialog 关闭按钮错位修复
+.ant-modal-close-x {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

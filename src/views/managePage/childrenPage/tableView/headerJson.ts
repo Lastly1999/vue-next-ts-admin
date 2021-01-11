@@ -11,7 +11,7 @@ const headerData: Array<object> = [
     },
     {
         "id": 3,
-        "dataIndex": "countrycode",
+        "dataIndex": "countryCode",
         "title": "城市代号"
     },
     {

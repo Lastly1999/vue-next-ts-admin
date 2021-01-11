@@ -1,20 +1,21 @@
+import {UserState} from "@/typings/store/stateTypings";
+import {GettersPerson} from "@/typings/store/gettersTypings";
+
 /*
 * 存放store get方法
 * @param getters
 */
+
 const getters: GettersPerson = {
-    getUserInfo(state: any) {
+    getUserInfo(state: UserState) {
         return state.UserInfo;
     },
-    getChildrenTitle(state: any) {
+    getChildrenTitle(state: UserState) {
         return state.childrenTitle
-    }
-}
-
-// 接口定义
-interface GettersPerson {
-    getUserInfo: (state: any) => object;
-    getChildrenTitle: (state: any) => string;
+    },
+    getRouteOption(state: UserState) {
+        return state.RouterOptions
+    },
 }
 
 

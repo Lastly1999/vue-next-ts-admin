@@ -9,7 +9,7 @@
 <script lang="ts">
 import {defineComponent, reactive, toRefs, onMounted} from "vue"
 import treeSelect from "@/components/manageComp/treeSelect/index.vue"
-import {GetTreeMenuList} from '@/service/api/homeHttp'
+import {getTreeMenuList} from '@/service/api/homeHttp'
 
 interface HttpTreePerson {
   treeList: Array<string | number>;
@@ -25,9 +25,10 @@ export default defineComponent({
     const httpTreeClass: HttpTreePerson = reactive<HttpTreePerson>({
       treeList: [],
       GetTreeMenuList: async () => {
-        await new GetTreeMenuList().httpPostRequest().then((res: any) => {
-          httpTreeClass.treeList = res.menuList
-        })
+        const {code, data}: any = await getTreeMenuList();
+        if (code === 200) {
+          httpTreeClass.treeList = data
+        }
       }
     })
     onMounted(() => {

@@ -1,3 +1,25 @@
 .loginView {
+  background-image: url("../../../assets/login/loginBg.jpg");
   height: 100vh;
+  .ant-btn-primary{
+    width: 100%;
+    box-shadow: 0 2px 8px #337df7!important;
+  }
+}
+
+.loginContainer {
+  background-image: url("../../../assets/login/loginForm.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 75vh;
+  margin: 0 auto;
+}
+
+.loginFormContainer {
+  display: flex;
+  height: 100%;
+  width: 35%;
+  text-align: center;
+  justify-content: center;
+  align-items: center
 }

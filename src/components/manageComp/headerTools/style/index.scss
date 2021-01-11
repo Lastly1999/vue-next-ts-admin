@@ -1,0 +1,16 @@
+#headerBar {
+    margin: 0 30px;
+    display: flex;
+    height: 100%;
+    float: right;
+    align-items: center;
+
+    #searchIcon {
+        font-size: 25px
+    }
+
+    #FullscreenIcon {
+        margin: 0 10px;
+        font-size: 25px
+    }
+}

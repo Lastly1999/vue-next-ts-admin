@@ -1,33 +1,21 @@
-import {Service} from "@/service/api/service";
+import {HttpService} from "@/service/api";
 
 /**
- * 请求表格数据请求
+ * 获取请求表格数据
+ * @param data
  */
-export class GetTableList extends Service {
-    constructor(data: object) {
-        const url = "/getTableList"
-        const params = {...data}
-        super(url, params)
-    }
-
-    // overload
-    public async httpPostRequest() {
-        return await super.httpPostRequest()
-    }
+export const getAllTableList = (data: object) => {
+    const url = "/getAllCityList"
+    const params = {...data}
+    return new HttpService().httpPost(params, url);
 }
 
 /**
- *  增删改操作请求
+ * 修改表格数据
+ * @param data
  */
-export class changeTalbeList extends Service {
-    constructor(data: object) {
-        const url = "/changeTableList";
-        const params = {...data}
-        super(url, params);
-    }
-
-    // overload
-    public async httpPostRequest() {
-        return await super.httpPostRequest()
-    }
+export const changeTalbeList = (data: object) => {
+    const url = "/editCityList"
+    const params = {...data}
+    return new HttpService().httpPost(params, url)
 }
