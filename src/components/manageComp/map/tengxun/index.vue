@@ -1,26 +1,26 @@
-<script>
-import TMap from 'TMap'
-
-export default {
-  name: "TMap",
-  methods: {
-    initMap() {
-      //定义地图中心点坐标
-      var center = new TMap.LatLng(39.984120, 116.307484)
-      //定义map变量，调用 TMap.Map() 构造函数创建地图
-      var map = new TMap.Map(document.getElementById('container'), {
-        center: center,//设置地图中心点坐标
-        zoom: 17.2,   //设置地图缩放级别
-        pitch: 43.5,  //设置俯仰角
-        rotation: 45    //设置地图旋转角度
-      });
-    }
-  },
-  created() {
-    this.initMap()
-  }
-}
-</script>
 <template>
-  <div id="container"></div>
+  <div id="qqMap" style="width: 100%;height: 600px"></div>
 </template>
+<script lang="ts">
+import {defineComponent, onMounted} from "vue"
+
+export default defineComponent({
+  name: "qqMap",
+  setup() {
+    // 地图初始化方法
+    const initQqMap = () => {
+      const myLatLng = new qq.maps.LatLng(39.90923, 116.397428) // 创建坐标点
+      const mayOption = {
+        zoom: 8, // 缩放比例
+        center: myLatLng, // 坐标中心点
+        mapTypeId: qq.maps.MapTypeId.ROADMAP // 地图类型id
+      }
+      const map = new qq.maps.map(document.getElementById("qqMap"), mayOption) // 构造腾讯地图实例 获取qqMap元素作为容器
+    }
+    onMounted(() => {
+      initQqMap();
+    })
+    return {initQqMap}
+  }
+})
+</script>

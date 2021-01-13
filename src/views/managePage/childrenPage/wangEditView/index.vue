@@ -1,5 +1,5 @@
 <template>
-  <div class="wangEditView">
+  <div class="wangEditView" style="background: #fff;padding: 30px">
     <h1 class="wangeditTitle">找了很多款基于vue3.0开发的富文本编辑器,最后还是选择了wangeditor这一款编辑器常用,虽然它不是由大型团队开发,但是简单易用体积很小</h1>
     <wangeditor></wangeditor>
   </div>

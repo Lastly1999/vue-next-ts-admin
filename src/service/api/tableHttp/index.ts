@@ -19,3 +19,13 @@ export const changeTalbeList = (data: object) => {
     const params = {...data}
     return new HttpService().httpPost(params, url)
 }
+
+/**
+ * 添加表格数据
+ * @param data
+ */
+export const appendTableList = (data: object) => {
+    const url = "/appendCityList"
+    const params = {...data}
+    return new HttpService().httpPost(params, url)
+}

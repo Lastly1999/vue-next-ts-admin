@@ -31,6 +31,7 @@ export default defineComponent({
         fields: "percent",
       }
     })
+    // document.documentElement("cardId")
     return {colConfig, data}
   }
 })

@@ -1,39 +1,3 @@
-/*
- * @Author: your name
- * @Date: 2020-12-01 19:57:24
- * @LastEditTime: 2020-12-03 22:02:51
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \adminboker_master\src\utils\tool\toolMethod.ts
- */
-/*
- localStorage操作封装
- */
-
-export class ToolMethod {
-    private readonly key: string;
-    private readonly value: any;
-
-    constructor(key: string, value?: any) {
-        this.key = key;
-        this.value = value;
-    }
-
-    // 设置Storage
-    setStorage() {
-        window.localStorage.setItem(this.key, this.value)
-    }
-
-    // 获取Storage
-    getStorage() {
-        return window.localStorage.getItem(this.key)
-    }
-
-    // 删除Storage
-    delStorage() {
-        window.localStorage.removeItem(this.key)
-    }
-}
 
 /**
  * 递归查找数组对象内相同元素

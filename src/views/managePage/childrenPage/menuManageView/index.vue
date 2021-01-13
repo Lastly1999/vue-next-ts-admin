@@ -23,3 +23,10 @@ export default defineComponent({
   }
 })
 </script>
+
+<style>
+.menuManageView{
+  background: #fff;
+  padding: 30px;
+}
+</style>

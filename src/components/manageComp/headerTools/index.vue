@@ -5,29 +5,28 @@
       <template #title>
         <span>搜索</span>
       </template>
-      <SearchOutlined id="searchIcon"/>
+      <SearchOutlined id="searchIcon" />
     </a-tooltip>
     <!-- 全屏 -->
     <a-tooltip placement="topLeft">
       <template #title>
         <span>全屏</span>
       </template>
-      <FullscreenOutlined @click="fullScreen" id="FullscreenIcon"/>
+      <FullscreenOutlined @click="fullScreen" id="FullscreenIcon" />
     </a-tooltip>
     <!-- 头像 -->
     <a-tooltip placement="topLeft">
       <template #title>
         <span>头像</span>
       </template>
-      <a-avatar :src="photo" shape="square" :size="40">
-      </a-avatar>
+      <a-avatar :src="photo" shape="square" :size="40"> </a-avatar>
     </a-tooltip>
   </div>
 </template>
 
 <script lang="ts">
-import {defineComponent, reactive, toRefs} from "vue";
-import {FullscreenOutlined, SearchOutlined} from "@ant-design/icons-vue";
+import { defineComponent, reactive, toRefs } from "vue";
+import { FullscreenOutlined, SearchOutlined } from "@ant-design/icons-vue";
 import "./style/index.scss";
 import screenfull from "screenfull";
 
@@ -36,8 +35,8 @@ export default defineComponent({
   props: {
     photo: {
       type: String,
-      default: () => ""
-    }
+      default: () => "",
+    },
   },
   components: {
     FullscreenOutlined,
@@ -48,13 +47,13 @@ export default defineComponent({
       isFullScreen: false,
       fullScreen: () => {
         if (!screenfull.isEnabled) {
-          return false
+          return false;
         }
         screenfull.toggle();
-      }
-    })
-    return {...toRefs(FullScreen)}
-  }
+      },
+    });
+    return { ...toRefs(FullScreen) };
+  },
 });
 </script>
 

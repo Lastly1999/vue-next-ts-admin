@@ -87,12 +87,12 @@ module.exports = {
         hotOnly: false,
         // 查阅 https://github.com/vuejs/vue-docs-zh-cn/blob/master/vue-cli/cli-service.md#配置代理
     },
-    // configureWebpack: {
-    //     externals: {
-    //         "BMap": "BMap",
-    //         "TMap": "TMap"
-    //     }
-    // },
+    configureWebpack: {
+        externals: {
+            "BMap": "BMap",
+            'AMap': 'AMap'
+        },
+    },
     // 三方插件的选项
     pluginOptions: {}
 }

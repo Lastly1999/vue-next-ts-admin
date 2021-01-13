@@ -111,8 +111,7 @@ export default defineComponent({
             tabsListClass.tabs.splice(idx, 1);
           }
         }
-        tabsListClass.activeKey =
-            tabsListClass.tabs[tabsListClass.tabs.length - 1].path;
+        tabsListClass.activeKey = tabsListClass.tabs[tabsListClass.tabs.length - 1].path;
         router.push(tabsListClass.activeKey);
       },
     });

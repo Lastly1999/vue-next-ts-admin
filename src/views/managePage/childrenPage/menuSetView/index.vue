@@ -2,37 +2,42 @@
   <div class="menuSetView">
     <formDialog :dialogTitle="title" @clear="clearDialog" :visible="visible">
       <treeMenuForm
-          :data="formData"
-          @okSubmit="submit"
-          :rules="rules"
-          :tree-data="treeData"
+        :data="formData"
+        @okSubmit="submit"
+        :rules="rules"
+        :tree-data="treeData"
       />
     </formDialog>
     <div style="margin-bottom: 20px">
-      <searchInput class="input" @searchInput="search"/>
-      <addButton @add="add"/>
+      <searchInput class="input" @searchInput="search" />
+      <addButton @add="add" />
     </div>
     <treeTable
-        @edit="editCol"
-        :columns="headerSoure"
-        :data="dataSoure"
-        :scroll="{ y: 'calc(100vh - 60px' }"
+      @edit="editCol"
+      @remove="removeCol"
+      :columns="headerSoure"
+      :data="dataSoure"
+      :scroll="{ y: 'calc(100vh - 60px' }"
     ></treeTable>
   </div>
 </template>
 
 <script lang="ts">
-import {defineComponent, reactive, toRefs, onMounted} from "vue";
-import {editTreeMenu, getTreeMenuList} from "@/service/api/homeHttp";
-import {AntdNotice} from "@/utils/antd/antdNotice";
+import { defineComponent, reactive, toRefs, onMounted } from "vue";
+import {
+  editTreeMenu,
+  getTreeMenuList,
+  addTreeMenu,
+  delTreeMenu,
+} from "@/service/api/homeHttp";
+import { AntdNotice } from "@/utils/antd/antdNotice";
 import "./style/index.scss";
 import treeTable from "@/components/manageComp/treeTable/index.vue";
 import headerSoure from "./headerJson";
 import searchInput from "@/components/manageComp/serachInput/index.vue";
 import formDialog from "@/components/manageComp/dialog/index.vue";
 import treeMenuForm from "@/components/manageComp/treeMenuForm/index.vue";
-import addButton from "@/components/manageComp/buttonGroup/index.vue"
-
+import addButton from "@/components/manageComp/buttonGroup/index.vue";
 
 export default defineComponent({
   name: "menuSetView",
@@ -41,9 +46,10 @@ export default defineComponent({
     searchInput,
     formDialog,
     treeMenuForm,
-    addButton
+    addButton,
   },
   setup() {
+    const notice = new AntdNotice(); // 提示组件
     /**
      * 请求列表
      */
@@ -51,7 +57,7 @@ export default defineComponent({
       headerSoure: [...headerSoure],
       dataSoure: [],
       getTableList: async () => {
-        const {code, data}: any = await getTreeMenuList();
+        const { code, data }: any = await getTreeMenuList();
         if (code == 200) {
           treeTableClass.dataSoure = data;
           formTreeSelect.treeData = data;
@@ -96,16 +102,36 @@ export default defineComponent({
       },
       // 校验规则
       rules: {
-        menuName: [{required: true, type: "string", trigger: "change"}],
-        menuIcon: [{required: true, type: "string", trigger: "change"}],
-        menuPath: [{required: true, type: "string", trigger: "change"}],
-        menuParentName: [{required: true, type: "string", trigger: "change"}],
+        menuName: [{ required: true, type: "string", trigger: "change" }],
+        menuIcon: [{ required: true, type: "string", trigger: "change" }],
+        menuPath: [{ required: true, type: "string", trigger: "change" }],
+        menuParentName: [{ required: true, type: "string", trigger: "change" }],
+      },
+      removeForm: async (id: number) => {
+        const { msg, code }: any = await delTreeMenu(id);
+        if (code === 200) {
+          notice.showNotice("success", msg, "");
+        }
+      },
+      editForm: async (data: any) => {
+        const { code, msg }: any = await editTreeMenu(data);
+        if (code === 200) {
+          notice.showNotice("success", msg, "");
+        }
+      },
+      addForm: async (data: any) => {
+        const { msg, code }: any = await addTreeMenu(data);
+        if (code === 200) {
+          notice.showNotice("success", msg, "");
+        }
       },
       // 表单提交
-      submit: async (submitData: object) => {
-        const {code, msg}: any = await editTreeMenu(submitData);
-        if (code === 200) {
-          new AntdNotice("success", msg, "").showNotice();
+      submit: async (submitData: any) => {
+        console.log(submitData);
+        if (submitData.menuId != null) {
+          await formDialog.editForm(submitData);
+        } else {
+          await formDialog.addForm(submitData);
         }
       },
     });
@@ -118,6 +144,9 @@ export default defineComponent({
         dialogClass.showDialog();
         formDialog.formData = JSON.parse(JSON.stringify(colData));
         console.log(colData);
+      },
+      removeCol: (record: any) => {
+        formDialog.removeForm(record.menuId);
       },
     });
     /**
@@ -132,7 +161,7 @@ export default defineComponent({
      */
     const buttonGroupClass = reactive({
       add: () => {
-        dialogClass.showDialog()
+        dialogClass.showDialog();
         formDialog.formData = {
           menuId: null,
           menuParentId: 0,
@@ -141,12 +170,12 @@ export default defineComponent({
           menuIcon: "",
           menuName: "",
           menuParentName: "",
-        }
+        };
       },
       search: (val: string) => {
-        console.log(val)
-      }
-    })
+        console.log(val);
+      },
+    });
     onMounted(() => {
       treeTableClass.getTableList();
     });

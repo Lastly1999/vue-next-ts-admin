@@ -1,11 +1,9 @@
-<!--
- * @Author: your name
- * @Date: 2020-12-01 19:57:24
- * @LastEditTime: 2020-12-03 23:29:56
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \adminboker_master\src\views\managePage\childrenPage\treeSelectView\index.vue
--->
+<template>
+  <div class="treeSelect">
+    <treeSelect :treeData="treeList"></treeSelect>
+  </div>
+</template>
+
 <script lang="ts">
 import {defineComponent, reactive, toRefs, onMounted} from "vue"
 import treeSelect from "@/components/manageComp/treeSelect/index.vue"
@@ -39,6 +37,9 @@ export default defineComponent({
   }
 })
 </script>
-<template>
-  <treeSelect :treeData="treeList"></treeSelect>
-</template>
+<style>
+.treeSelect{
+  background: #fff;
+  padding: 30px;
+}
+</style>

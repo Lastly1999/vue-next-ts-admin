@@ -39,3 +39,5 @@ export const delTreeMenu = (id: number) => {
     const params = {menuId: id}
     return new HttpService().httpPost(params, url);
 }
+
+
